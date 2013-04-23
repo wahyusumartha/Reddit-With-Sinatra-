@@ -6,4 +6,14 @@ class Reddit < Sinatra::Application
     haml :index
   end
 
+  # Insert New Link 
+  post '/' do
+    l = Link.new
+    l.title = params[:title]
+    l.url = params[:url]
+    l.created_at = Time.now
+    l.save
+    redirect back
+  end
+
 end
