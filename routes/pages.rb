@@ -16,4 +16,18 @@ class Reddit < Sinatra::Application
     redirect back
   end
 
+  # Vote Link 
+  put '/:id/vote/:type' do
+    l = Link.get params[:id]
+    l.points += params[:type].to_i 
+    l.save 
+    redirect back
+  end
+
+  # Populate Data 
+  get '/hot' do
+    @links = Link.all_sorted_desc
+    haml :index
+  end
+
 end
